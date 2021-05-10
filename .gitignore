@@ -1,0 +1,6 @@
+__pycache__
+.idea
+*.py[cod]
+*.tsv
+*.csv
+test.py

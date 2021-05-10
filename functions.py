@@ -1,6 +1,10 @@
+"""
+This is the module where all the functions that work in the script are concentrated.
+"""
+from random import randint
+import datetime
 import const_and_inp
 import stars
-from random import randint
 
 
 def open_tsv(data_tsv, fov_ra: float, fov_dec: float, ra_user_input: float, dec_user_input: float) -> list:
@@ -86,3 +90,24 @@ def my_key_mag(item):
 
 def my_key_dist(item):
     return item.distance
+
+
+def create_result(star_array: list):
+    """
+the function is designed to create the final output as a .csv file,
+the file name is the date and time of the current time
+    """
+    with open(f'{datetime.datetime.now()}.csv', 'w') as csv_temp:
+        head = 'ID'.center(20) + ',' + \
+               'RA'.center(20) + ',' + \
+               'DEC'.center(20) + ',' + \
+               'MAG'.center(20) + ',' + \
+               'DISTANCE'.center(20) + '\n'
+        csv_temp.write(head)
+        for star in star_array:
+            row = f'{star.id}'.center(20) + ',' + \
+                  f'{star.ra}'.center(20) + ',' + \
+                  f'{star.dec}'.center(20) + ',' + \
+                  f'{star.mag}'.center(20) + ',' + \
+                  f'{star.distance}'.center(20) + '\n'
+            csv_temp.write(row)

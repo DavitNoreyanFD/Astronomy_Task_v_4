@@ -1,5 +1,6 @@
 import const_and_inp
 import stars
+from random import randint
 
 
 def open_tsv(data_tsv, fov_ra: float, fov_dec: float, ra_user_input: float, dec_user_input: float) -> list:
@@ -40,3 +41,48 @@ def open_tsv(data_tsv, fov_ra: float, fov_dec: float, ra_user_input: float, dec_
         raise Exception(f'the specified path to the database is not correct: {data_tsv}')
 
     return list_of_db
+
+
+def quicksort(array: list, key, reverse: bool) -> list:
+    """
+a quicksort sorting algorithm that takes an array, key, and sort direction and returns a sorted array
+    """
+    if len(array) < 2:
+        return array
+    left = []
+    same = []
+    right = []
+    delimiter = key(array[randint(0, len(array) - 1)])
+
+    for item in array:
+        value = key(item)
+        if value > delimiter:
+            if reverse is False:
+                left.append(item)
+            else:
+                right.append(item)
+        elif value == delimiter:
+            same.append(item)
+        elif value < delimiter:
+            if reverse is False:
+                right.append(item)
+            else:
+                left.append(item)
+    sorted_array = quicksort(left, key, reverse) + same + quicksort(right, key, reverse)
+
+    return sorted_array
+
+
+def n_high_mag(array: list, num: int) -> list:
+    """
+functions strips out num elements from array
+    """
+    return array[:num]
+
+
+def my_key_mag(item):
+    return item.mag
+
+
+def my_key_dist(item):
+    return item.distance
